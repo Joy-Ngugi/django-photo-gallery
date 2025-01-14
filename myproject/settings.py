@@ -77,6 +77,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
+ASGI_APPLICATION = 'myproject.asgi.application'
+
 
 # CLOUDINARY_STORAGE = {
 #     'CLOUD_NAME': 'die2ahtwv',
