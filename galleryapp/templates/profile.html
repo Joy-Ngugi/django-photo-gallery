@@ -1,0 +1,48 @@
+{% extends 'base.html'%}
+{%block title%} profile {%endblock%}
+{% block content %}
+  
+<main class="container mx-auto mt-8">
+  <p class="text-4xl font-bold text-center">Welcome, {{ user.username }}!</p>
+  <p class="text-2xl font-bold">Email: {{ user.email }}</p>
+  <p class="text-2xl font-bold">Bio {{user.bio}}</p>
+  <div class="mb-6">
+    <h3 class="text-lg font-medium text-gray-600">Update Information</h3>
+    <form action="{% url 'update_profile' %}" method="POST" class="space-y-4 mt-4">
+      {% csrf_token %}
+        <div>
+            <label for="new-username" class="block text-sm font-medium text-gray-700">New Username</label>
+            <input type="text" name="new-username" id="new-username" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter new username" required>
+        </div>
+
+        
+        <div>
+            <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+            <textarea name="bio" id="bio" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your bio">Web Developer and Enthusiast</textarea>
+        </div>
+
+        
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" name="email" id="email" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter new email" required>
+        </div>
+
+       
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">New Password</label>
+            <input type="password" name="password" id="password" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter new password">
+        </div>
+        
+        <div>
+            <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input type="password" name="confirm-password" id="confirm-password" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Confirm new password">
+        </div>
+
+        
+        <button type="submit" class="mt-4 w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Update Profile</button>
+    </form>
+</div>
+</div>
+</main>
+  
+{% endblock %}

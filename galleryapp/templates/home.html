@@ -1,0 +1,56 @@
+{%extends 'base.html' %}
+
+{%block title%}Home {%endblock%}
+
+{%block content%}
+<div class="flex flex-col lg:flex-row gap-8 lg:gap-x-80 ml-4 lg:ml-8">
+<h2 class="mt-4 text-xl text-left font-semibold">Filter by Tags</h2>
+<h1 class="text-3xl lg:text-4xl mb-6 text-center mt-4 italic font-light">Welcome to the world best art gallery</h1>
+</div>
+    <div class="flex flex-col lg:flex-row items-start gap-8 lg:gap-x-56 ml-4 lg:ml-8 mb-6">
+            
+             <form method="get" class="filter-form w-full lg:w-auto">
+                {{ form.as_p }}
+                <button type="submit" class="mt-4  py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Filter </button>
+            </form>
+            <h1 class="text-4xl lg:text-5xl font-bold mb-6 text-center">Photo Collection</h1>
+    </div>
+    <div class="mx-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for photo in photos %}
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <a href="{% url 'photo_detail' photo.id %}">
+                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="w-full h-48 object-cover">
+            </a>
+            <div class="p-4">
+                <h2 class="text-lg font-semibold">{{ photo.title }}</h2>
+                <p>{{ photo.description|safe }}</p>
+                <p class="mt-4 text-gray-600">Tags: 
+                    {% if photo.tags.all %}
+                      {% for tag in photo.tags.all %}
+                          <span class="bg-blue-200 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{{ tag.name }}</span>
+                      {% endfor %}
+                    {% else %}
+                       <span>No tags available</span>
+                    {% endif %}
+                  </p>
+            <div class="flex gap-6">
+                <form method="POST" action="{% url 'like_photo' photo.id %}">
+                    {% csrf_token %}
+                    <button type="submit">👍 </button>
+                </form>
+                <span>{{ photo.likes }}</span>
+        
+               
+                <form method="POST" action="{% url 'dislike_photo' photo.id %}">
+                    {% csrf_token %}
+                    <button type="submit">👎 </button>
+                </form>
+                <span>{{ photo.dislikes }}</span>
+            </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{%endblock%}

@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="mt-8 mb-40">
+{% if error_message%}
+
+<p class="text-red-500 text-center font-semibold mb-4">{{ error_message}}</p>
+{% endif%}
+<div class="bg-white bg-opacity-80 p-8 rounded-lg shadow-md w-full max-w-sm mx-auto">
+<form method="post" action="{% url 'login' %}" class="space-y-6">
+    {% csrf_token %}
+    <label for="username" class="block text-gray-700 font-medium">Username:</label>
+    <input class="p-4 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" type="text" name="username" id="username">
+    <br>
+    <label class="block text-gray-700 font-medium" for="password">Password:</label>
+    <input class="p-4 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" type="password" name="password" id="password">
+    <br>
+    <input type="submit" value="Login" class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer">
+</form>
+</div>
+</div>
+{%endblock%}
